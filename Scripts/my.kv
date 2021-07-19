@@ -1,0 +1,981 @@
+#:import hex kivy.utils.get_color_from_hex
+#: import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+WindowManager:
+    MainScreen:
+    Compress:
+    Convert:
+    pngtojpg:
+    jpgtopng:
+    Resize:
+    Steganography_Main:
+    StegDe:
+    StegEn:
+
+<MainScreen>:
+
+    name : "main"
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "MANIPULATION"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//9
+            size_hint: .1,.3
+            pos_hint: {"x":0.45,"top":1.04}
+            color : hex("#563379")
+
+        Label:
+            text : "IMAGE"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//9
+            size_hint: .1,.3
+            pos_hint: {"x":0.45,"top":1.1}
+            color : hex("#563379")
+
+        Button:
+            border:(0, 0, 0, 0)
+            size_hint: .48,.1
+            pos_hint: {"x":0.275,"y":0.35}
+            background_normal : root.manager.dir + "Images\\convert.png"
+            background_down : root.manager.dir + "Images\\convert.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "convert"
+
+        Button:
+            border:(0, 0, 0, 0)
+            size_hint: .5,.12
+            pos_hint: {"x":0.25,"y":0.51}
+            background_normal : root.manager.dir + "Images\\compress.png"
+            background_down : root.manager.dir + "Images\\compress.png"
+            color: hex('#ff6e40')
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "compress"
+
+        Button:
+            border:(0, 0, 0, 0)
+            size_hint: .35,.12
+            pos_hint: {"x":0.324,"y":0.68}
+            background_normal : root.manager.dir + "Images\\Resize.png"
+            background_down : root.manager.dir + "Images\\Resize.png"
+            color: hex('#ff6e40')
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "resize"
+
+        Button:
+            border:(0, 0, 0, 0)
+            size_hint: .85,.135
+            pos_hint: {"x":0.08,"y":.16}
+            background_normal : root.manager.dir + "Images\\steganography.png"
+            background_down : root.manager.dir + "Images\\steganography.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "stegmain"
+
+        Button:
+            border:(0, 0, 0, 0)
+            size : 109.875,48
+            size_hint : None, None
+            pos_hint: {"x":0.38,"y":.02}
+            opacity: 1 if self.state == 'normal' else .5
+            background_normal : root.manager.dir + "Images\\quit.png"
+            background_down : root.manager.dir + "Images\\quit.png"
+            on_release:
+                app.stop()
+
+<Compress>:
+
+    name : "compress"
+    filename1 : file
+    val : slider
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "COMPRESS"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .85, .09
+            pos_hint: {"x":0.08,"y":0.65}
+            background_normal : root.manager.dir + "Images\\selectanimage.png"
+            background_down : root.manager.dir + "Images\\selectanimage.png"
+            border : (0,0,0,0)
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_filename()
+
+        Label:
+            text : ""
+            id : file
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.55,"top":.6}
+            color : hex("#563379")
+
+        Label:
+            text : "Current File : "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.2,"top":.6}
+            color : hex("#563379")
+
+        Label:
+            text : "Compression Intensity "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.46,"top":.53}
+            color : hex("#563379")
+
+        Label:
+            text : str(int(slider.value)) + " %"
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .6,.1
+            pos_hint: {"x":0.2,"top":.48}
+            color : hex("#563379")
+
+        Slider:
+            id: slider
+            min: 0
+            max: 95
+            step: 1
+            orientation: 'horizontal'
+            size_hint: 0.7,.06
+            pos : (68,290)
+            padding: 0
+            border: (0,0,0,0)
+            cursor_color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .55, 0.08
+            pos_hint: {"x":0.22,"y":0.25}
+            background_normal : root.manager.dir + "Images\\compresspg.png"
+            background_down : root.manager.dir + "Images\\compresspg.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_saveas()
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                file.text = ""
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                file.text = ""
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
+
+<SuccessCon>:
+    Label:
+        text : "The conversion was successful"
+        font_size : root.width//20
+        font_name : root.manager.dir + "Fonts\\Nunito Light"
+        size_hint: .1,.1
+        pos_hint: {"x":0.45,"top":0.9}
+
+    Button:
+        text : "Exit"
+        size_hint: .4,.38
+        font_size : root.width//12
+        pos_hint : {"x":0.3,"y":0.05}
+        on_release:
+            root.quit1()
+
+<SuccessCom>:
+
+    Label:
+        text : "The compression was successful"
+        font_size : root.width//20
+        size_hint: .1,.1
+        pos_hint: {"x":0.45,"top":0.9}
+
+    Button:
+        text : "Exit"
+        size_hint: .4,.38
+        font_size : root.width//12
+        pos_hint : {"x":0.3,"y":0.05}
+        on_release:
+            root.quit1()
+
+<SuccessRes>:
+
+    Label:
+        text : "The image was resized succesfully"
+        font_size : root.width//20
+        size_hint: .1,.1
+        pos_hint: {"x":0.45,"top":0.9}
+
+    Button:
+        text : "Exit"
+        size_hint: .2,.38
+        font_size : root.width//12
+        pos_hint : {"x":0.4,"y":0.05}
+        on_release:
+            root.quit1()
+
+<SuccessSteg>:
+
+    Label:
+        text : "The message was encoded successfully"
+        font_size : root.width//20
+        size_hint: .1,.1
+        pos_hint: {"x":0.45,"top":0.9}
+
+    Button:
+        text : "Exit"
+        size_hint: .4,.38
+        font_size : root.width//12
+        pos_hint : {"x":0.3,"y":0.05}
+        on_release:
+            root.quit1()
+
+<Convert>:
+
+    name: "convert"
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "CONVERT"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .7, .1
+            pos_hint: {"x":0.15,"y":0.6}
+            background_normal : root.manager.dir + "Images\\jpgtopng.png"
+            background_down : root.manager.dir + "Images\\jpgtopng.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "jpgtopng"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .7, .1
+            pos_hint: {"x":0.15,"y":0.4}
+            background_normal : root.manager.dir + "Images\\pngtojpg.png"
+            background_down : root.manager.dir + "Images\\pngtojpg.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "pngtojpg"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
+
+<pngtojpg>:
+
+    name: "pngtojpg"
+    filename1 : file
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "PNG TO JPG"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .85, .09
+            pos_hint: {"x":0.08,"y":0.65}
+            background_normal : root.manager.dir + "Images\\selectanimage.png"
+            background_down : root.manager.dir + "Images\\selectanimage.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_filename()
+
+        Label:
+            text : ""
+            id : file
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.55,"top":.6}
+            color : hex("#563379")
+
+        Label:
+            text : "Current File : "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.2,"top":.6}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .6, 0.097
+            pos_hint: {"x":0.2,"y":0.35}
+            background_normal : root.manager.dir + "Images\\convertpg.png"
+            background_down : root.manager.dir + "Images\\convertpg.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_saveas()
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                app.root.current = "convert"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                file.text = ""
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
+
+<jpgtopng>:
+
+    name: "jpgtopng"
+    filename1 : file
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "JPG TO PNG"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .85, .09
+            pos_hint: {"x":0.08,"y":0.65}
+            background_normal : root.manager.dir + "Images\\selectanimage.png"
+            background_down : root.manager.dir + "Images\\selectanimage.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_filename()
+
+        Label:
+            text : ""
+            id : file
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.55,"top":.6}
+            color : hex("#563379")
+
+        Label:
+            text : "Current File : "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.2,"top":.6}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .6, 0.097
+            pos_hint: {"x":0.2,"y":0.35}
+            background_normal : root.manager.dir + "Images\\convertpg.png"
+            background_down : root.manager.dir + "Images\\convertpg.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_saveas()
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                app.root.current = "convert"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                file.text = ""
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
+
+<Resize>:
+
+    height_h : height
+    width_h : width
+    filename1 : file
+    filesize : size
+    name: "resize"
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "RESIZE"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .85, .09
+            pos_hint: {"x":0.08,"y":0.7}
+            background_normal : root.manager.dir + "Images\\selectanimage.png"
+            background_down : root.manager.dir + "Images\\selectanimage.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_filename()
+
+        Label:
+            text : ""
+            id : file
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.55,"top":.7}
+            color : hex("#563379")
+
+        Label:
+            text : "Current File : "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.2,"top":.7}
+            color : hex("#563379")
+        Label:
+            text : ""
+            id : size
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.55,"top":.65}
+            color : hex("#563379")
+
+        Label:
+            text : "Current Size : "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.2,"top":.65}
+            color : hex("#563379")
+
+        Label:
+            text : "Width"
+            font_size : root.width//18
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            size_hint: .1,.1
+            pos_hint: {"x":0.3,"top":0.6}
+            color : hex("#563379")
+
+        Label:
+            text : "Height"
+            font_size : root.width//18
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            size_hint: .1,.1
+            pos_hint: {"x":0.3,"top":0.5}
+            color : hex("#563379")
+
+        TextInput:
+            id : width
+            font_size : root.width//26
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            multiline : False
+            size_hint: .3,.04
+            color : hex("#563379")
+            pos_hint: {"x":0.5,"top":0.57}
+
+        TextInput:
+            id : height
+            font_size : root.width//26
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            multiline : False
+            size_hint: .3,.04
+            pos_hint: {"x":0.5,"top":0.47}
+            color : hex("#563379")
+            disabled : False if CheckBox.active == False else True
+
+        Label:
+            text : "Aspect Ratio"
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.38,"top":0.4}
+            color : hex("#563379")
+
+        CheckBox:
+            id:CheckBox
+            size_hint: 0.02,0.02
+            pos_hint: {"x":0.65,"top":0.36}
+            text: 'Aspect Ratio'
+            color : hex("#563379")
+            active : False
+            on_release:
+                height.text = ""
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .37, 0.08
+            pos_hint: {"x":0.33,"y":0.2}
+            background_normal : root.manager.dir + "Images\\resizepg.png"
+            background_down : root.manager.dir + "Images\\resizepg.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_saveas()
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                file.text = ""
+                width.text = ""
+                height.text = ""
+                app.root.current = "main"
+
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                file.text = ""
+                width.text = ""
+                height.text = ""
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
+
+<Steganography_Main>:
+
+    name :"stegmain"
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "STEGANOGRAPHY"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .75, .1
+            pos_hint: {"x":0.125,"y":0.6}
+            background_normal : root.manager.dir + "Images\\encryption.png"
+            background_down : root.manager.dir + "Images\\encryption.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "stegen"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .75, .1
+            pos_hint: {"x":0.125,"y":0.4}
+            background_normal : root.manager.dir + "Images\\decryption.png"
+            background_down : root.manager.dir + "Images\\decryption.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "left",duration = 0.15)
+                app.root.current = "stegde"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
+
+<StegDe>:
+
+    name: "stegde"
+    datade : datade
+    filename1 : file
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "DECRYPTION"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1.05}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .85, .09
+            pos_hint: {"x":0.08,"y":0.80}
+            background_normal : root.manager.dir + "Images\\selectanimage.png"
+            background_down : root.manager.dir + "Images\\selectanimage.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_filename()
+
+        Label:
+            text : ""
+            id : file
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.57,"top":.8}
+            color : hex("#563379")
+
+        Label:
+            text : "Current File : "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.22,"top":.8}
+            color : hex("#563379")
+
+        Label:
+            text : "Decoded Message "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.295,"top":.74}
+            color : hex("#563379")
+
+        TextInput:
+            id : datade
+            font_size : root.width//25
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            multiline : True
+            size_hint: .8,.4
+            pos_hint: {"x":0.1,"top":0.67}
+            disabled : True
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .45, .08
+            pos_hint: {"x":0.28,"y":0.17}
+            background_normal : root.manager.dir + "Images\\decryptpg.png"
+            background_down : root.manager.dir + "Images\\decryptpg.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_decrypt()
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                datade.text = ""
+                file.text = ""
+                app.root.current = "stegmain"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                datade.text = ""
+                file.text = ""
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
+
+<StegEn>:
+
+    name:"stegen"
+    dataen : dataen
+    filename1 : file
+
+    FloatLayout:
+
+        Image:
+            source : root.manager.dir + "Images\\newimg.png"
+
+        Label:
+            text : "ENCRYPTION"
+            font_name : root.manager.dir + "Fonts\\GothamLight"
+            font_size : root.width//10
+            size_hint: .1,.2
+            pos_hint: {"x":0.45,"top":1.05}
+            color : hex("#563379")
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .85, .09
+            pos_hint: {"x":0.08,"y":0.80}
+            background_normal : root.manager.dir + "Images\\selectanimage.png"
+            background_down : root.manager.dir + "Images\\selectanimage.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_filename()
+
+        Label:
+            text : ""
+            id : file
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.57,"top":.8}
+            color : hex("#563379")
+
+        Label:
+            text : "Current File : "
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.22,"top":.8}
+            color : hex("#563379")
+
+        Label:
+            text : "Enter your message"
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            font_size : root.width//18
+            size_hint: .1,.1
+            pos_hint: {"x":0.313,"top":.74}
+            color : hex("#563379")
+
+        TextInput:
+            id : dataen
+            font_size : root.width//25
+            font_name : root.manager.dir + "Fonts\\Nunito Light"
+            multiline : True
+            size_hint: .8,.4
+            pos_hint: {"x":0.1,"top":0.67}
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .45, .08
+            pos_hint: {"x":0.28,"y":0.17}
+            background_normal : root.manager.dir + "Images\\encryptpg.png"
+            background_down : root.manager.dir + "Images\\encryptpg.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                root.get_saveas()
+                dataen.text = ""
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .15, .05
+            pos_hint: {"x":0.10,"y":0.027}
+            background_normal : root.manager.dir + "Images\\back.png"
+            background_down : root.manager.dir + "Images\\back.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition = SlideTransition(direction = "right",duration = 0.15)
+                dataen.text = ""
+                file.text = ""
+                app.root.current = "stegmain"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .16, .075
+            pos_hint: {"x":0.42,"y":0.02}
+            background_normal : root.manager.dir + "Images\\home.png"
+            background_down : root.manager.dir + "Images\\home.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.root.transition =RiseInTransition(duration = 0.1)
+                dataen.text = ""
+                file.text = ""
+                app.root.current = "main"
+
+        Button:
+            border : (0,0,0,0)
+            size_hint: .13, .065
+            pos_hint: {"x":0.77,"y":0.02}
+            background_normal : root.manager.dir + "Images\\quit1.png"
+            background_down : root.manager.dir + "Images\\quit1.png"
+            opacity: 1 if self.state == 'normal' else .5
+            on_release:
+                app.stop()
