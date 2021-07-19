@@ -236,8 +236,7 @@ class Compress(Screen):
         if x == "png" or x == "jpg" or x == "jpeg":
             pass
         else:
-            extension = filename.split(".")[-1]
-            filename2 += "." + extension
+            filename2 += "." + "jpg"
         print(filename2)
         com = 100 - int(self.val.value)
         manipulation.compression(filename,filename2,com)
