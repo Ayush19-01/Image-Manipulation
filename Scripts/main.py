@@ -129,12 +129,12 @@ class pngtojpg(Screen):
         filename2 = filedialog.asksaveasfilename(initialdir="C:\\Users\\Ayush\\PycharmProjects\\DA\\", title="Select an image",filetype=(("Jpg", ".jpg .jpeg"),))
 
         root.destroy()
+        print(filename2)
         x = (filename2.split(".")[-1])
         if x == "jpg" or x == "jpeg":
             pass
         else:
-            extension = filename.split(".")[-1]
-            filename2 += "." + extension
+            filename2 += "." + "jpg"
 
         manipulation.conversion(filename, filename2)
         SuccessCon.showpopup()
@@ -162,6 +162,7 @@ class jpgtopng(Screen):
         root.destroy()
 
         x = (filename2.split(".")[-1])
+        print(filename2)
         if x == "png" :
             pass
         else:
@@ -236,7 +237,8 @@ class Compress(Screen):
         if x == "png" or x == "jpg" or x == "jpeg":
             pass
         else:
-            filename2 += "." + "jpg"
+            extension = filename.split(".")[-1]
+            filename2 += "." + extension
         print(filename2)
         com = 100 - int(self.val.value)
         manipulation.compression(filename,filename2,com)
